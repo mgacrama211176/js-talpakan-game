@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TLPKN</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- TITLE SCREEN -->
+    <div class="title-screen flex">
+      <img src="assets/images/game-title-1.png" alt="TLPKN" />
+      <div class="buttons-container">
+        <button class="start-game-btn">
+          <img src="assets/images/start-game-btn.png" alt="Start Game" />
+        </button>
+        <button class="how-to-play-btn">
+          <img src="assets/images/how-to-play-btn.png" alt="How to Play" />
+        </button>
+      </div>
+    </div>
+    <!-- MAIN GAME SCREEN -->
+    <div class="game-container">
+      <div class="top-container hidden flex">
+        <!-- PLAYER ONE STATS -->
+        <div class="player-0-container">
+          <p class="player-number">Player 1</p>
+          <div class="hp-container hp-container-left flex">
+            <img class="heart-icon" src="assets/images/heart.png" alt="Heart" />
+            <div class="hp-bar-container hp-bar-container-left flex">
+              <span class="hp-text" id="hp-text-0">100</span>
+              <div class="hp-bar" id="hp-bar-0"></div>
+            </div>
+          </div>
+          <div class="stamina-container stamina-container-left flex">
+            <img src="assets/images/thunder.png" alt="Thunder" />
+            <span id="player-0-stamina">50</span>
+          </div>
+        </div>
+        <div class="game-title">
+          <img src="assets/images/game-title-1.png" alt="TLPKN" />
+        </div>
+        <!-- PLAYER TWO STATS -->
+        <div class="player-1-container">
+          <p class="player-number">Player 2</p>
+          <div class="hp-container hp-container-right">
+            <img class="heart-icon" src="assets/images/heart.png" alt="Heart" />
+            <div class="hp-bar-container hp-bar-container-right">
+              <span class="hp-text" id="hp-text-1">100</span>
+              <div class="hp-bar" id="hp-bar-1"></div>
+            </div>
+          </div>
+          <div class="stamina-container stamina-container-right">
+            <img src="assets/images/thunder.png" alt="Thunder" />
+            <span id="player-1-stamina">50</span>
+          </div>
+        </div>
+      </div>
+      <!-- ADD "HIDDEN" CLASS TO MID-CONTAINER WHEN GAME ENDS -->
+      <div class="mid-container hidden">
+        <div class="mid-left">
+          <p>Attack<br />Power:</p>
+          <span class="attack-power-text" id="player-0-power">5</span>
+        </div>
+        <div class="power-up-container">
+          <div id="power-up-btn">
+            <img id="power-up" src="assets/images/card-back.png" alt="Card" />
+          </div>
+          <p id="power-up-text">Power Up!</p>
+        </div>
+        <div class="mid-right">
+          <p>Attack<br />Power:</p>
+          <span class="attack-power-text" id="player-1-power">5</span>
+        </div>
+      </div>
+      <div class="bottom-container">
+        <!-- ARROW INDICATORS: USE "INVISIBLE" CLASS INSTEAD OF "HIDDEN" -->
+        <div class="arrow-container flex">
+          <img
+            class="arrow-0 bounce invisible"
+            src="assets/images/arrow.png"
+            alt="Arrow"
+          />
+          <img
+            class="arrow-1 bounce invisible"
+            src="assets/images/arrow.png"
+            alt="Arrow"
+          />
+        </div>
+        <!-- CHICKEN AVATAR -->
+        <div class="avatars flex">
+          <img
+            class="shrubs"
+            src="assets/images/shrubs-left.png"
+            alt="Shrubs"
+          />
+          <img
+            id="chickens"
+            class="chicken-image"
+            src="assets/images/chicken-playerx-attack.png"
+            alt="Chicken"
+          />
+          <img
+            class="shrubs"
+            src="assets/images/shrubs-right.png"
+            alt="Shrubs"
+          />
+        </div>
+        <div class="foreground-container flex">
+          <!-- ATTACK BUTTON: CHANGE TO "PLAY AGAIN" BTN WHEN GAME ENDS -->
+          <div class="bottom-buttons-container">
+            <footer>
+              &copy; 2022 AlDonCeLane Technologies | All Rights Reserved
+            </footer>
+            <button class="hidden" onclick="chickenAttack()" id="attack-btn">
+              <img
+                class="play-again"
+                src="assets/images/attack-btn.png"
+                alt="Attack Button"
+              />
+            </button>
+            <div class="shortcut-buttons hidden">
+              <button>
+                <img id="home" src="assets/images/home-btn.png" alt="Home" />
+              </button>
+              <button>
+                <img
+                  id="restart"
+                  src="assets/images/restart-btn.png"
+                  alt="Restart"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- GAME OVER SCREEN. UNHIDE WHEN GAME ENDS. USE 'FLEX-DIRECTION: ROW-REVERSE' TO FLIP -->
+    <div class="game-over hidden flex">
+      <div class="winner-side">
+        <img class="trophy" src="assets/images/trophy.png" alt="Trophy" />
+        <img class="winner-text" src="assets/images/winner.png" alt="Winner" />
+      </div>
+      <div class="loser-side">
+        <img class="loser-text" src="assets/images/loser.png" alt="Loser" />
+      </div>
+    </div>
+    <!-- INSTRUCTIONS WINDOW -->
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>Fight or Fried</h1>
+      <div class="game-instructions-intro">
+        This is a two-player game on the same device.
+      </div>
+      <div class="game-instructions-intro">
+        Players take turns in making moves.
+      </div>
+      <div class="game-instructions-container">
+        <div class="game-instructions flex">
+          <div class="game-elements flex">
+            <img
+              class="game-element"
+              src="assets/images/attack-btn.png"
+              alt="attack"
+            />
+            <img
+              class="game-element"
+              src="assets/images/card-10.png"
+              alt="power-up-plus"
+            />
+            <img
+              class="game-element"
+              src="assets/images/card-0.png"
+              alt="lose-turn"
+            />
+            <img
+              class="game-element"
+              src="assets/images/stamina.png"
+              alt="stamina"
+            />
+            <img
+              class="game-element"
+              src="assets/images/health-bar.png"
+              alt="health-bar"
+            />
+          </div>
+          <div class="game-text">
+            <div class="move-text">
+              <div class="move-name">attack:</div>
+              <div class="move-definition">deducts current attack points</div>
+              <div class="move-definition">from opponent's health</div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">power up:</div>
+              <div class="move-definition">
+                increases attack points randomly
+              </div>
+              <div class="move-definition">(+2, +4, +6, +8, or +10)</div>
+              <div class="move-definition">
+                each power up costs 5 stamina points
+              </div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">lose turn:</div>
+              <div class="move-definition">no increase in attack points</div>
+              <div class="move-definition">and loses turn to attack</div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">stamina:</div>
+              <div class="move-definition">used to buy power up points</div>
+              <div class="move-definition">
+                regenerates by 10 points after each attack
+              </div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">health:</div>
+              <div class="move-definition">
+                indicates health status / survival rate
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="winner-text-instructions">
+          Last chicken standing wins &#x1F3C6;
+        </div>
+      </div>
+    </div>
+    <!-- RETURN TO TITLE SCREEN MODAL WINDOW -->
+    <div class="modal-confirmation return-title-modal hidden">
+      <p class="confirmation-message">Return to title screen?</p>
+      <button class="btn" id="yes-btn-title">Yes</button>
+      <button class="btn no-btn">No</button>
+    </div>
+    <!-- RESTART GAME MODAL WINDOW -->
+    <div class="modal-confirmation restart-game-modal hidden">
+      <p class="confirmation-message">Restart the Game?</p>
+      <button class="btn" id="yes-btn-restart">Yes</button>
+      <button class="btn no-btn">No</button>
+    </div>
+    <div class="blur hidden"></div>
+    <div class="dark-blur hidden"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
